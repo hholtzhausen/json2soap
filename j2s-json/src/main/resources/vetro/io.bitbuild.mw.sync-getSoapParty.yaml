@@ -1,0 +1,10 @@
+name: GetSoapParty
+
+syncPipeline:
+  request:
+    fromUri: seda:getSoapParty
+    xformUri: xslt:xsl/headerToWs.xsl,dataformat:jaxb:unmarshal?contextPath=org.tempuri
+    operateUri: bean:partyWS?method=beProcess
+  response:
+    enrichUri: dataformat:jaxb:marshal?contextPath=org.tempuri
+    xformUri: xslt:xsl/wsToJson.xsl,dataformat:jacksonXml:unmarshal?unmarshalType=org.j2s.JParty

@@ -1,0 +1,9 @@
+name: GetJsonParty
+
+syncPipeline:
+  request:
+    fromUri: seda:getJsonParty
+    operateUri: bean:partyBean?method=getParty
+  response:
+    enrichUri: dataformat:jacksonXml:marshal
+    xformUri: xslt:xsl/jsonToWs.xsl,dataformat:jaxb:unmarshal?contextPath=org.tempuri
